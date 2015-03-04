@@ -1,10 +1,8 @@
 package ru.tech_mail.translator;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 
 import ru.tech_mail.translator.fragments.ListLanguagesFragment;
 
@@ -21,8 +19,11 @@ public class ListLanguagesActivity extends FragmentActivity implements ListLangu
 
     @Override
     public void onArticleSelected(int position) {
-        Log.d("LALALA", "MSGGGGG");
+        Intent data = new Intent();
+        data.putExtra("language", Languages.getLanguageByPosition(position));
+        data.putExtra("language_code", Languages.getCodeLangByPosition(position));
+        setResult(RESULT_OK, data);
+        finish();
     }
-
 
 }
