@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import ru.tech_mail.translator.api.YandexApiImpl;
 import ru.tech_mail.translator.fragments.ListLanguagesFragment;
 
 
@@ -21,7 +22,6 @@ public class TranslatorActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_translator);
-
         final Button sourceLangBtn = (Button) findViewById(R.id.source_language);
         sourceLangBtn.setOnClickListener(new View.OnClickListener() {
             @Override
