@@ -9,19 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.HashMap;
+import ru.tech_mail.translator.Languages;
 
 /**
  * Created by vadim on 02.03.15.
  */
 public class ListLanguagesFragment extends ListFragment {
-    String[] languages = new String[]{"Русский", "Английский"};
+    private String[] languages = Languages.getLanguages();
     private OnItemSelectedListener mCallback;
-
-    private static HashMap<String, String> LanguageMap = new HashMap<>();
-    static {
-        initLanguageMap();
-    }
 
 
     @Override
@@ -31,6 +26,7 @@ public class ListLanguagesFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1,
                 languages);
         setListAdapter(adapter);
@@ -56,12 +52,4 @@ public class ListLanguagesFragment extends ListFragment {
         public void onArticleSelected(int position);
     }
 
-    private static void initLanguageMap() {
-        LanguageMap.put("Русский", "ru");
-        LanguageMap.put("Английский", "en");
-    }
-
-    public String getKeyLanguage(String value) {
-        return LanguageMap.get(value);
-    }
 }
