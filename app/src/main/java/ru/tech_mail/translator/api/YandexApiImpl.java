@@ -26,7 +26,7 @@ public class YandexApiImpl {
         String result="";
         try {
             requestString+=urlString+"?key="+apiKey+"&text="+text+"&lang="+from+"-"+to;
-            url = new URL("http://ya.ru");
+            url = new URL(requestString);
             conn = url.openConnection();
             conn.setDoOutput(false);
             conn.setDoInput(true);
@@ -38,18 +38,19 @@ public class YandexApiImpl {
             rd.close();
         } catch (Exception e) {
             e.printStackTrace();
+            return "connection error";
         }
 
         try {
-            JSONObject responseJSON = new JSONObject(result);
+            JSONObject responseJSON = new JSONObject(responseString);
             switch (responseJSON.getInt("code")){
                 case 200:{
-                    responseJSON.getJSONArray("text");
-                    Log.d("DBG",responseJSON.getJSONArray("text").toString());
+                    result= responseJSON.getJSONArray("text").get(0).toString();///TODO а если яндекс таки вернет массив???
                 }
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            result= "service down";
         }
         return result;
     }

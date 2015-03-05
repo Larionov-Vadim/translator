@@ -2,12 +2,17 @@ package ru.tech_mail.translator;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.net.URL;
+
+import ru.tech_mail.translator.api.YandexApiImpl;
 
 
 public class TranslatorActivity extends Activity {
@@ -20,9 +25,14 @@ public class TranslatorActivity extends Activity {
 
     private Button sourceLangBtn;
     private Button destLangBtn;
+    private Button translateBtn;
 
     private EditText originalText;
     private EditText translatedText;
+
+    public void setTranslateResult(String res){
+        this.translatedText.setText(res);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +77,17 @@ public class TranslatorActivity extends Activity {
             }
         });
 
+        translateBtn=(Button)findViewById(R.id.translate_button);
+        translateBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                new TranslateTask().execute(originalText.getText().toString(),"en","ru");
+            }
+        });
+
         originalText = (EditText) findViewById(R.id.original_text);
         translatedText = (EditText) findViewById(R.id.translated_text);
+
     }
 
 
@@ -91,5 +110,25 @@ public class TranslatorActivity extends Activity {
             }
         }
     }
+
+    //0-текст, 1 - язык с которого переводим, 2 - язык на который переводим
+    public class TranslateTask extends AsyncTask<String, Integer, String> {
+       //private TranslatorActivity parent;
+
+        protected String doInBackground(String... params) {
+            YandexApiImpl api = new YandexApiImpl();
+            return  api.translate(params[0],params[1],params[2]);
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+
+        }
+
+        protected void onPostExecute(String result) {
+            //parent.setTranslateResult(result);
+            setTranslateResult(result);
+        }
+    }
+
 
 }
