@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
 
     <string name="translate">Перевод</string>
+    <string name="swap_language_button">&lt;&gt;</string>
 
 </resources>

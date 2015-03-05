@@ -21,15 +21,15 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:text="New Button"
+            android:height="20dp"
             android:id="@+id/source_language"
             android:layout_weight="1"
-            android:padding="5dp"/>
+            android:padding="@dimen/language_button_padding"/>
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:text="&lt;>"
+            android:text="@string/swap_language_button"
             android:id="@+id/swap_language"
             android:layout_weight="1"
             android:padding="5dp"
@@ -39,14 +39,11 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:text="New Button"
             android:id="@+id/destinational_language"
             android:layout_weight="1"
-            android:padding="5dp"/>
+            android:padding="@dimen/language_button_padding"/>
 
     </LinearLayout>
-
-
 
 
     <LinearLayout
@@ -84,18 +81,11 @@
             android:clickable="false"
             android:cursorVisible="false"
             android:focusable="false"
-            android:focusableInTouchMode="false"/>
-
+            android:focusableInTouchMode="false"
+            android:gravity="top"
+            android:padding="10dp"/>
 
     </LinearLayout>
-
-
-
-
-
-
-
-
 
 
 </RelativeLayout>

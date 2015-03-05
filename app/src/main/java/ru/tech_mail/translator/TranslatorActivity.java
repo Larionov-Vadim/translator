@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.net.URL;
-
 import ru.tech_mail.translator.api.YandexApiImpl;
 
 
@@ -38,10 +36,6 @@ public class TranslatorActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_translator);
-
-        String msg = "Source: " + sourceLang.first + " " + sourceLang.second;
-        Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
-        toast.show();
 
         sourceLangBtn = (Button) findViewById(R.id.source_language);
         sourceLangBtn.setOnClickListener(new View.OnClickListener() {
@@ -77,11 +71,11 @@ public class TranslatorActivity extends Activity {
             }
         });
 
-        translateBtn=(Button)findViewById(R.id.translate_button);
+        translateBtn = (Button) findViewById(R.id.translate_button);
         translateBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                new TranslateTask().execute(originalText.getText().toString(),"en","ru");
+                new TranslateTask().execute(originalText.getText().toString(), sourceLang.first, destLang.first);
             }
         });
 
@@ -111,7 +105,7 @@ public class TranslatorActivity extends Activity {
         }
     }
 
-    //0-текст, 1 - язык с которого переводим, 2 - язык на который переводим
+    // 0 - текст, 1 - язык с которого переводим, 2 - язык на который переводим
     public class TranslateTask extends AsyncTask<String, Integer, String> {
        //private TranslatorActivity parent;
 
@@ -129,6 +123,5 @@ public class TranslatorActivity extends Activity {
             setTranslateResult(result);
         }
     }
-
 
 }
