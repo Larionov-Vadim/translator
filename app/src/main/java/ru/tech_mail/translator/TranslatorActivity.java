@@ -41,7 +41,11 @@ public class TranslatorActivity extends Activity {
         final ArrayList<String> languagesArrayList = new ArrayList<>();
         languagesArrayList.add("ru");
         languagesArrayList.add("en");
+        languagesArrayList.add("de");
+        languagesArrayList.add("es");
         languagesArrayList.add("fr");
+        languagesArrayList.add("it");
+        languagesArrayList.add("pt");
 
         sourceLangBtn = (Button) findViewById(R.id.source_language);
         sourceLangBtn.setOnClickListener(new View.OnClickListener() {
