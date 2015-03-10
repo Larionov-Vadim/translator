@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -131,5 +132,19 @@ public class TranslatorActivity extends Activity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putString("sourceLang", sourceLang);
+        outState.putString("destLang", destLang);
     }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        sourceLang = savedInstanceState.getString("sourceLang", "ru");
+        destLang = savedInstanceState.getString("destLang", "en");
+        sourceLangBtn.setText(sourceLang);
+        destLangBtn.setText(destLang);
+        Toast.makeText(this, "src: " + sourceLang, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "dst: " + destLang, Toast.LENGTH_SHORT).show();
+    }
+
 }
