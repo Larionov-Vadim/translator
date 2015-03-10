@@ -131,9 +131,9 @@ public class TranslatorActivity extends Activity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
         outState.putString("sourceLang", sourceLang);
         outState.putString("destLang", destLang);
+        super.onSaveInstanceState(outState);
     }
 
     @Override

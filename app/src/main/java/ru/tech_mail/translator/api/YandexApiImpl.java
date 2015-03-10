@@ -17,7 +17,7 @@ public class YandexApiImpl {
     private static final String urlString = "https://translate.yandex.net/api/v1.5/tr.json/translate";
 
     public String translate(String text,String from,String to) {
-        URL url;
+        URL url; //зачем блок объявления переменных?
         URLConnection conn;
         BufferedReader rd;
         String line;
@@ -53,12 +53,12 @@ public class YandexApiImpl {
         try {
             JSONObject responseJSON = new JSONObject(responseString);
             switch (responseJSON.getInt("code")) {
-                case 200:{
+                case 200:{ //необычный синтаксис
                     result= responseJSON.getJSONArray("text").get(0).toString(); // TODO а если яндекс таки вернет массив???
                 }
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // не на всех версиях выплюен в LogCat используейте Log.e(...
             result= "Service down";
         }
         return result;

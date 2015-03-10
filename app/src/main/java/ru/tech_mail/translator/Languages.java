@@ -8,7 +8,7 @@ import java.util.HashMap;
 /**
  * Created by vadim on 04.03.15.
  */
-public class Languages {
+public class Languages { //рудимент???
 
     private ArrayList<String> languages;
 
