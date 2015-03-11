@@ -1,20 +1,23 @@
-package ru.tech_mail.translator;
+package ru.tech_mail.translator.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import ru.tech_mail.translator.R;
 import ru.tech_mail.translator.api.YandexApiImpl;
 
 
-public class TranslatorActivity extends Activity {
+public class TranslatorActivity extends ActionBarActivity {
 
     private String sourceLang = "ru";    // Default value
     private String destLang = "en";      // Destination Language
@@ -35,12 +38,15 @@ public class TranslatorActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_translator);
 
         final ArrayList<String> languagesArrayList = new ArrayList<>();
         languagesArrayList.add("ru");
         languagesArrayList.add("en");
+        languagesArrayList.add("de");
+        languagesArrayList.add("it");
         languagesArrayList.add("fr");
 
         sourceLangBtn = (Button) findViewById(R.id.source_language);
@@ -110,10 +116,24 @@ public class TranslatorActivity extends Activity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_translator, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.about_item:
+                Intent i = new Intent(TranslatorActivity.this, AboutActivity.class);
+                startActivity(i);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     // 0 - текст, 1 - язык с которого переводим, 2 - язык на который переводим
     public class TranslateTask extends AsyncTask<String, Integer, String> {
-       //private TranslatorActivity parent;
-
         protected String doInBackground(String... params) {
             YandexApiImpl api = new YandexApiImpl();
             return  api.translate(params[0],params[1],params[2]);
@@ -124,7 +144,6 @@ public class TranslatorActivity extends Activity {
         }
 
         protected void onPostExecute(String result) {
-            //parent.setTranslateResult(result);
             setTranslateResult(result);
         }
     }
@@ -143,8 +162,6 @@ public class TranslatorActivity extends Activity {
         destLang = savedInstanceState.getString("destLang", "en");
         sourceLangBtn.setText(sourceLang);
         destLangBtn.setText(destLang);
-        Toast.makeText(this, "src: " + sourceLang, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "dst: " + destLang, Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -1,4 +1,4 @@
-package ru.tech_mail.translator;
+package ru.tech_mail.translator.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 
 import java.util.ArrayList;
 
+import ru.tech_mail.translator.R;
 import ru.tech_mail.translator.fragments.ListLanguagesFragment;
 
 /**
