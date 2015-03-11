@@ -21,6 +21,9 @@
             android:name=".activities.ListLanguagesActivity">
 
         </activity>
+        <activity android:name=".activities.AboutActivity">
+
+        </activity>
 
 
     </application>
