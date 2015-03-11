@@ -26,8 +26,10 @@ public class YandexApiImpl {
         String result = "";
 
         try {
-            requestString += urlString + "?key=" + apiKey + "&text=" + URLEncoder.encode(text,"UTF-8") + "&lang=" + from + "-" + to;
-
+            //requestString += urlString + "?key=" + apiKey + "&text=" + URLEncoder.encode(text,"UTF-8") + "&lang=" + from + "-" + to;
+            StringBuilder requestStringBuiledr=new StringBuilder(urlString);
+            requestStringBuiledr.append("?key=").append(apiKey).append("&text=").append(URLEncoder.encode(text,"UTF-8")).append("&lang=").append(from).append("-").append(to);
+            requestString=requestStringBuiledr.toString();
             url = new URL(requestString);
             conn = url.openConnection();
             conn.setDoOutput(false);
