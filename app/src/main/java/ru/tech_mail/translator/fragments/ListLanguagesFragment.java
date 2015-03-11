@@ -9,13 +9,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+<<<<<<< HEAD
 import ru.tech_mail.translator.activities.Languages;
+=======
+import ru.tech_mail.translator.ListLanguagesActivity;
+>>>>>>> 036feb4e6cd4a9985ebe3467de4da65009e5dbcb
 
 /**
  * Created by vadim on 02.03.15.
  */
 public class ListLanguagesFragment extends ListFragment {
-    private String[] languages = Languages.getLanguages();
+    private String[] languages;
     private OnItemSelectedListener mCallback;
 
 
@@ -26,7 +30,10 @@ public class ListLanguagesFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        //ArrayList<String> arrayListLanguages = savedInstanceState.getStringArrayList("languages");
+        //languages = (String[]) arrayListLanguages.toArray();
+        ListLanguagesActivity activity = (ListLanguagesActivity) getActivity();
+        languages = activity.getLanguages();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1,
                 languages);
         setListAdapter(adapter);

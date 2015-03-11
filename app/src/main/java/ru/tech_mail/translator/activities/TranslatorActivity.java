@@ -4,21 +4,29 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+<<<<<<< HEAD:app/src/main/java/ru/tech_mail/translator/activities/TranslatorActivity.java
 import android.support.v7.app.ActionBarActivity;
 import android.util.Pair;
 import android.view.Menu;
+=======
+>>>>>>> 036feb4e6cd4a9985ebe3467de4da65009e5dbcb:app/src/main/java/ru/tech_mail/translator/TranslatorActivity.java
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+<<<<<<< HEAD:app/src/main/java/ru/tech_mail/translator/activities/TranslatorActivity.java
 import ru.tech_mail.translator.R;
+=======
+import java.util.ArrayList;
+
+>>>>>>> 036feb4e6cd4a9985ebe3467de4da65009e5dbcb:app/src/main/java/ru/tech_mail/translator/TranslatorActivity.java
 import ru.tech_mail.translator.api.YandexApiImpl;
 
 
 public class TranslatorActivity extends ActionBarActivity {
 
-    private Pair<String, String> sourceLang = new Pair<>("ru", "Русский");  // Default value
-    private Pair<String, String> destLang = new Pair<>("en", "English");    // Destination Language
+    private String sourceLang = "ru";    // Default value
+    private String destLang = "en";      // Destination Language
 
     private static final int REQUEST_CODE_SOURCE_LANG = 100;
     private static final int REQUEST_CODE_DEST_LANG = 101;
@@ -40,37 +48,43 @@ public class TranslatorActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_translator);
 
+        final ArrayList<String> languagesArrayList = new ArrayList<>();
+        languagesArrayList.add("ru");
+        languagesArrayList.add("en");
+        languagesArrayList.add("fr");
+
         sourceLangBtn = (Button) findViewById(R.id.source_language);
         sourceLangBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(TranslatorActivity.this, ListLanguagesActivity.class);
+                i.putStringArrayListExtra("languagesArrayList", languagesArrayList);
                 startActivityForResult(i, REQUEST_CODE_SOURCE_LANG);
             }
         });
-        sourceLangBtn.setText(sourceLang.second);
-        
+        sourceLangBtn.setText(sourceLang);
+
         destLangBtn = (Button) findViewById(R.id.destinational_language);
         destLangBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(TranslatorActivity.this, ListLanguagesActivity.class);
+                i.putStringArrayListExtra("languagesArrayList", languagesArrayList);
                 startActivityForResult(i, REQUEST_CODE_DEST_LANG);
             }
         });
-        destLangBtn.setText(destLang.second);
+        destLangBtn.setText(destLang);
 
         Button swapLangBtn = (Button) findViewById(R.id.swap_language);
         swapLangBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CharSequence buf = sourceLangBtn.getText();
-                sourceLangBtn.setText(destLangBtn.getText());
-                destLangBtn.setText(buf);
-
-                Pair<String, String> temp = sourceLang;
+                String temp = sourceLang;
                 sourceLang = destLang;
                 destLang = temp;
+
+                sourceLangBtn.setText(sourceLang);
+                destLangBtn.setText(destLang);
             }
         });
 
@@ -78,7 +92,7 @@ public class TranslatorActivity extends ActionBarActivity {
         translateBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                new TranslateTask().execute(originalText.getText().toString(), sourceLang.first, destLang.first);
+                new TranslateTask().execute(originalText.getText().toString(), sourceLang, destLang);
             }
         });
 
@@ -94,15 +108,13 @@ public class TranslatorActivity extends ActionBarActivity {
             return;
 
         String lang = data.getStringExtra("language");
-        String langCode = data.getStringExtra("language_code");
-
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_CODE_SOURCE_LANG) {
-                sourceLang = new Pair<>(lang, langCode);
+                sourceLang = lang;
                 sourceLangBtn.setText(lang);
             }
             if (requestCode == REQUEST_CODE_DEST_LANG) {
-                destLang = new Pair<>(lang, langCode);
+                destLang = lang;
                 destLangBtn.setText(lang);
             }
         }
@@ -131,6 +143,24 @@ public class TranslatorActivity extends ActionBarActivity {
             //parent.setTranslateResult(result);
             setTranslateResult(result);
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("sourceLang", sourceLang);
+        outState.putString("destLang", destLang);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        sourceLang = savedInstanceState.getString("sourceLang", "ru");
+        destLang = savedInstanceState.getString("destLang", "en");
+        sourceLangBtn.setText(sourceLang);
+        destLangBtn.setText(destLang);
+        Toast.makeText(this, "src: " + sourceLang, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "dst: " + destLang, Toast.LENGTH_SHORT).show();
     }
 
 }
