@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import ru.tech_mail.translator.Languages;
+import ru.tech_mail.translator.activities.Languages;
 
 /**
  * Created by vadim on 02.03.15.

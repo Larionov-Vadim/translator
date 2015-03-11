@@ -1,19 +1,21 @@
-package ru.tech_mail.translator;
+package ru.tech_mail.translator.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Pair;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import ru.tech_mail.translator.R;
 import ru.tech_mail.translator.api.YandexApiImpl;
 
 
-public class TranslatorActivity extends Activity {
+public class TranslatorActivity extends ActionBarActivity {
 
     private Pair<String, String> sourceLang = new Pair<>("ru", "Русский");  // Default value
     private Pair<String, String> destLang = new Pair<>("en", "English");    // Destination Language
@@ -34,6 +36,7 @@ public class TranslatorActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_translator);
 
@@ -103,6 +106,12 @@ public class TranslatorActivity extends Activity {
                 destLangBtn.setText(lang);
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_translator, menu);
+        return true;
     }
 
     // 0 - текст, 1 - язык с которого переводим, 2 - язык на который переводим

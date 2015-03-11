@@ -1,4 +1,4 @@
-package ru.tech_mail.translator;
+package ru.tech_mail.translator.activities;
 
 import java.util.HashMap;
 
