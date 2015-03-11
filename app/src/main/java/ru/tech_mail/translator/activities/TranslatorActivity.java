@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -119,6 +120,16 @@ public class TranslatorActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_translator, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.about_item:
+                Intent i = new Intent(TranslatorActivity.this, AboutActivity.class);
+                startActivity(i);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     // 0 - текст, 1 - язык с которого переводим, 2 - язык на который переводим

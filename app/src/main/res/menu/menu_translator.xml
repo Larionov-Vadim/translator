@@ -4,7 +4,7 @@
     tools:context=".TranslatorActivity">
 
     <item
-        android:id="@+id/action_menu"
+        android:id="@+id/about_item"
         android:title="@string/action_about"
         android:orderInCategory="1"
         app:showAsAction="never" />
