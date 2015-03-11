@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.net.*;
+import java.nio.CharBuffer;
 
 
 /**
@@ -31,16 +32,24 @@ public class YandexApiImpl {
             conn = url.openConnection();
             conn.setDoOutput(false);
             conn.setDoInput(true);
-            //conn.setRequestMethod("GET");
+            conn.setRequestProperty("method","GET");//WUTWUT
+            conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+            conn.setRequestProperty("accept-charset", "UTF-8");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + "UTF-8");
+
             rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            while ((line = rd.readLine()) != null) {
-                responseString += line;
+            StringBuilder sb = new StringBuilder();
+            CharBuffer buf = CharBuffer.allocate(1);
+            while ((rd.read(buf)) >=0) {
+                sb.append(buf.flip());
             }
+            responseString = sb.toString();
             rd.close();
         } catch (Exception e) {
             e.printStackTrace();
             return "Connection error";
         }
+
 
         try {
             JSONObject responseJSON = new JSONObject(responseString);
