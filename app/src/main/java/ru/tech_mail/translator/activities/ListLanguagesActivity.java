@@ -4,12 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
-<<<<<<< HEAD:app/src/main/java/ru/tech_mail/translator/activities/ListLanguagesActivity.java
-import ru.tech_mail.translator.R;
-=======
 import java.util.ArrayList;
 
->>>>>>> 036feb4e6cd4a9985ebe3467de4da65009e5dbcb:app/src/main/java/ru/tech_mail/translator/ListLanguagesActivity.java
+import ru.tech_mail.translator.R;
 import ru.tech_mail.translator.fragments.ListLanguagesFragment;
 
 /**
