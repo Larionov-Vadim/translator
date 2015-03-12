@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -7,18 +7,22 @@
     <fragment
         android:name="ru.tech_mail.translator.fragments.AboutImageFragment"
         android:id="@+id/fragmentImage"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
         tools:layout="@layout/image_about"
         />
 
     <fragment
         android:name="ru.tech_mail.translator.fragments.AboutTextFragment"
         android:id="@+id/fragmentText"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/fragmentImage"
         tools:layout="@layout/text_about"
         />
 
-
-</LinearLayout>
+</RelativeLayout>
