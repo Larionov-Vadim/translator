@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -28,7 +30,7 @@ public class TranslatorActivity extends ActionBarActivity {
     private Button sourceLangBtn;
     private Button destLangBtn;
     private Button translateBtn;
-
+    private ProgressBar translateProgressBar;
     private EditText originalText;
     private EditText translatedText;
 
@@ -91,6 +93,9 @@ public class TranslatorActivity extends ActionBarActivity {
                 new TranslateTask().execute(originalText.getText().toString(), sourceLang, destLang);
             }
         });
+        translateProgressBar = (ProgressBar) findViewById(R.id.progress);
+
+        translateProgressBar.setVisibility(View.INVISIBLE);//прогресс бар
 
         originalText = (EditText) findViewById(R.id.original_text);
         translatedText = (EditText) findViewById(R.id.translated_text);
@@ -134,16 +139,30 @@ public class TranslatorActivity extends ActionBarActivity {
 
     // 0 - текст, 1 - язык с которого переводим, 2 - язык на который переводим
     public class TranslateTask extends AsyncTask<String, Integer, String> {
+        @Override
+        protected void onPreExecute(){
+            try {
+                TranslatorActivity.this.translateProgressBar.setVisibility(View.VISIBLE);
+            } catch (Exception e){
+                Log.e("vire",e.toString());
+            }
+        }
+        @Override
         protected String doInBackground(String... params) {
             YandexApiImpl api = new YandexApiImpl();
             return  api.translate(params[0],params[1],params[2]);
         }
-
+        @Override
         protected void onProgressUpdate(Integer... progress) {
-
+            TranslatorActivity.this.translateProgressBar.setVisibility(View.VISIBLE);
         }
-
+        @Override
         protected void onPostExecute(String result) {
+            try {
+                TranslatorActivity.this.translateProgressBar.setVisibility(View.INVISIBLE);
+            } catch (Exception e){
+                Log.e("vire",e.toString());
+            }
             setTranslateResult(result);
         }
     }
