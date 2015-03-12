@@ -10,7 +10,9 @@
     <string name="textAbout">The program has been created by a team of students\n
         \nDmitry Moskaliuk
         \nVadim Larionov
-        \nNarek Abovyan</string>
+        \nNarek Abovyan\n
+    </string>
+    <string name="linkAPIButtonName">see the description of the API</string>
 
 
 </resources>
